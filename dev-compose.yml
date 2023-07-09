@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  database:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=shipay
+      - POSTGRES_PASSWORD=shipay
+      - POSTGRES_DB=shipayDB
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  application:
+    build:
+      context: .
+      dockerfile: DevDockerfile
+    depends_on:
+      - database
