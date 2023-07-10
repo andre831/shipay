@@ -8,7 +8,9 @@ from routes.users import usersRoute
 from models.main import sql
 
 app = Flask(__name__)
-app.config.from_pyfile("models/config.py")
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql+psycopg2://shipay:shipay@database:5432/shipayDB"
 
 sql.init_app(app)
 migrate = Migrate(app, sql, directory="models/migrations")
@@ -30,4 +32,4 @@ def root():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=5000)
