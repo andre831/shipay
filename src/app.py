@@ -4,16 +4,19 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from src.routes.users import usersRoute
-from src.database.models import database
+from routes.users import usersRoute
+from models.main import sql
 
 app = Flask(__name__)
-app.config.from_pyfile("database/config.py")
+app.config.from_pyfile("models/config.py")
 
-database.init_app(app)
-migrate = Migrate(app, database, directory="database/migrations")
+sql.init_app(app)
+migrate = Migrate(app, sql, directory="models/migrations")
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
+app.register_blueprint(usersRoute)
 
 
 @app.route("/")
@@ -25,8 +28,6 @@ def root():
 
     return json.dumps(payload)
 
-
-app.register_blueprint(usersRoute)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)

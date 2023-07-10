@@ -8,3 +8,4 @@ psycopg2-binary
 flask-sqlalchemy
 Flask-Migrate
 SQLAlchemy==1.4
+flask[async]
