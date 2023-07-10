@@ -1,6 +1,6 @@
 from flask import Flask
 
-from src.routes.users import usersRoute
+from routes.users import usersRoute
 
 app = Flask(__name__)
 

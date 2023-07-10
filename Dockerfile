@@ -1,11 +1,8 @@
-FROM python:3.9 AS builder
+FROM python:3.9-slim AS builder
 
 WORKDIR /app
 
 COPY requirements.txt .
-
-RUN apt-get update && apt-get install -y build-essential
-
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 COPY . .
@@ -17,9 +14,12 @@ WORKDIR /app
 COPY --from=builder /root/.local /root/.local
 
 ENV PATH=/root/.local/bin:$PATH
+ENV PYTHONPATH=/app
 
-COPY . .
+COPY src /app
+
+ENV FLASK_APP=app.py
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "src.app:app"]
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
