@@ -1,5 +1,6 @@
-from src.routes.users import usersRoute
 from flask import Flask
+
+from src.routes.users import usersRoute
 
 app = Flask(__name__)
 

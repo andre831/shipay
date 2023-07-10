@@ -6,10 +6,9 @@ usersRoute = Blueprint("prefix", __name__, url_prefix="/users")
 
 
 @usersRoute.route("/")
-async def get_all_users():
+def get_all_users():
     data = {"name": "Andre"}
 
-    await asyncio.sleep(5)
     return json.dumps(data)
 
 
