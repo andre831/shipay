@@ -18,8 +18,10 @@ ENV PYTHONPATH=/app
 
 COPY src /app
 
+RUN pip install --no-cache-dir gunicorn
+
 ENV FLASK_APP=app.py
 
 EXPOSE 5000
 
-CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
