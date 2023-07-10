@@ -1,4 +1,4 @@
-from src.database.users_db import users_db
+from database.users_db import users_db
 
 
 class UsersCtrl:

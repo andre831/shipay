@@ -1,7 +1,7 @@
 import asyncio
 import json
 from flask import Blueprint, jsonify
-from src.controller.users_control import users_ctrl
+from controller.users_control import users_ctrl
 
 usersRoute = Blueprint("prefix", __name__, url_prefix="/users")
 

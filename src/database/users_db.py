@@ -1,5 +1,5 @@
 import asyncio
-from src.models.main import UserModel
+from models.main import UserModel
 
 
 class UsersDB:

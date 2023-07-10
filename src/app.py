@@ -4,8 +4,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from src.routes.users import usersRoute
-from src.models.main import sql
+from routes.users import usersRoute
+from models.main import sql
 
 app = Flask(__name__)
 app.config.from_pyfile("models/config.py")
