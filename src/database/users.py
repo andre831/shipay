@@ -1,11 +1,26 @@
-from src.database.config import Base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import func
+from database.config import database
+
+dbc = database.Column
 
 
-class MyTable(Base):
-    __tablename__ = "my_table"
+class UserModel(database.Model):
+    __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50))
-    age = Column(Integer)
-    email = Column(String(100))
+    id = dbc(database.Integer, database.Identity(always=True), primary_key=True)
+    name = dbc(database.String(), nullable=False)
+    email = dbc(database.String(), nullable=False)
+    password = dbc(database.String(), nullable=False)
+    role_id = dbc(database.Integer(), database.ForeignKey("parent.id"), nullable=False)
+    created_at = dbc(database.DateTime, default=func.current_timestamp())
+    updated_at = dbc(
+        database.DateTime,
+        default=func.current_timestamp(),
+        onupdate=func.current_timestamp(),
+    )
+
+    def __init__(self, name, email, password, role_id):
+        self.name = name
+        self.email = email
+        self.password = password
+        self.role_id = role_id
