@@ -44,6 +44,14 @@ Para fazer o deploy desse projeto rode, é necessário apenas que seja feito um 
     git push origin main
 ```
 
+### Como funciona o deploy?
+
+    Armazenado no Google Cloud Plataform, está sendo usado o recurso de Clound Run, serviço que permite manter em funcionamento uma aplicação sem a necessidade de servidor.
+
+    É necessário um `Dockerfile` que irá gerar a imagem necessária para rodar um container com a aplicação.
+
+    Com este recurso é possível fazer a implementação automática de novos recursos sempre que realizar um commit no projeto.
+
 ##
 
 ## Rotas da API
@@ -134,3 +142,9 @@ Para fazer o deploy desse projeto rode, é necessário apenas que seja feito um 
 
 - `dev-compose.yml`:
   Armazena configurações para uso do projeto no ambiente local.
+
+## Banco de dados
+
+    O banco de dados usado na aplicação é PostgreSQL, armazenado em um cluster cloud separadamente.
+
+    [Banco de dados aqui!](https://clients.cloudclusters.io/applications/ce24ff9063e04c27aa5c8bac92fe8468/dbuser)
