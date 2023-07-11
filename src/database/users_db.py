@@ -1,5 +1,5 @@
 import asyncio
-from models.main import UserModel
+from models.main import sql, RoleModel, UserModel
 
 
 class UsersDB:
@@ -9,12 +9,11 @@ class UsersDB:
         return query
 
     async def get_only_user_by_role(self, role_id):
-        query = UserModel.query.filter_by(role_id=role_id).first()
+        user = UserModel.query.filter_by(role_id=role_id).first()
 
-        if query:
-            return query
-        else:
-            return None
+        role = RoleModel.query.filter_by(id=user.role_id).first()
+
+        return role
 
 
 users_db = UsersDB()

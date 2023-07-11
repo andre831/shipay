@@ -1,3 +1,6 @@
+import random
+import string
+
 from database.users_db import users_db
 
 
@@ -25,13 +28,19 @@ class UsersCtrl:
 
         return all_users
 
-    async def get_only_user_by_role(self, role_id):
-        user_by_role = await users_db.get_only_user_by_role(role_id)
+    async def get_only_user_by_role(role_id):
+        role_user = await users_db.get_only_user_by_role(role_id)
 
-        # if len(user_by_role) < 1:
-        #     return []
+        user = []
 
-        print(user_by_role)
+        if role_user:
+            u_data = {"id": role_user.id, "description": role_user.description}
+
+            user.append(u_data)
+
+            return user
+
+        return []
 
 
 users_ctrl = UsersCtrl
