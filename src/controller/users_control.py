@@ -1,17 +1,21 @@
 import random
 import string
 
-from database.users_db import users_db
+from database.users_db import UsersDB
 
 
 class UsersCtrl:
+    def __init__(self):
+        pass
+
     def generate_random_password():
         letters_and_digits = string.ascii_letters + string.digits
-        password = "".join(random.choice(letters_and_digits) for _ in range(8))
+        password = "".join(random.choice(letters_and_digits) for _ in range(12))
         return password
 
+    @staticmethod
     async def get_all_users():
-        users = await users_db.get_all_users()
+        users = await UsersDB.get_all_users()
 
         all_users = []
 
@@ -33,8 +37,8 @@ class UsersCtrl:
 
         return all_users
 
-    async def get_only_user_by_role(role_id):
-        role_user = await users_db.get_only_user_by_role(role_id)
+    async def get_only_user_by_role(user_id, role_id):
+        role_user = await UsersDB.get_only_user_by_role(user_id, role_id)
 
         user = []
 
@@ -47,9 +51,8 @@ class UsersCtrl:
 
         return []
 
-    @classmethod
-    async def create_user(cls, data):
-        new_user = await users_db.create_user(data)
+    async def create_user(data):
+        new_user = await UsersDB.create_user(data)
 
         print(new_user)
 
@@ -68,6 +71,3 @@ class UsersCtrl:
         )
 
         return user
-
-
-users_ctrl = UsersCtrl

@@ -1,16 +1,12 @@
-import asyncio
-import json
-import random
-import string
 from flask import Blueprint, jsonify, request
-from controller.users_control import users_ctrl
+from controller.users_control import UsersCtrl
 
-usersRoute = Blueprint("prefix", __name__, url_prefix="/users")
+usersRoute = Blueprint("users", __name__, url_prefix="/users")
 
 
 @usersRoute.route("/", methods=["GET"])
 async def get_all_users():
-    users = await users_ctrl.get_all_users()
+    users = await UsersCtrl.get_all_users()
 
     if users:
         return jsonify({"data": users}), 200
@@ -18,9 +14,9 @@ async def get_all_users():
         return jsonify({"msg": "Users not found"}), 400
 
 
-@usersRoute.route("/role/<role_id>", methods=["GET"])
-async def get_user_role(role_id):
-    user = await users_ctrl.get_only_user_by_role(role_id)
+@usersRoute.route("<user_id>/role/<role_id>", methods=["GET"])
+async def get_user_role(user_id, role_id):
+    user = await UsersCtrl.get_only_user_by_role(user_id, role_id)
 
     if user:
         return jsonify({"data": user}), 200
@@ -36,9 +32,9 @@ async def new_user():
         return jsonify({"msg": "Missing required fields"}), 400
 
     if "password" not in data:
-        data["password"] = users_ctrl.generate_random_password()
+        data["password"] = UsersCtrl.generate_random_password()
 
-    user = await users_ctrl.create_user(data)
+    user = await UsersCtrl.create_user(data)
 
     if user:
         return jsonify({"data": user}), 201
