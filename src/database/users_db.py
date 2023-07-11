@@ -14,9 +14,13 @@ class UsersDB:
     async def get_only_user_by_role(user_id, role_id):
         user = UserModel.query.filter_by(id=user_id, role_id=role_id).first()
 
-        role = RoleModel.query.filter_by(id=user.role_id).first()
+        if user:
+            role = RoleModel.query.filter_by(id=user.role_id).first()
 
-        return role
+            if role:
+                return role
+
+        return None
 
     async def create_user(data):
         new_user = UserModel(

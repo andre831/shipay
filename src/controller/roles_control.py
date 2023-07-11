@@ -10,15 +10,18 @@ class RoleCtrl:
 
         roles = []
 
-        for r in all_roles:
-            r_data = {
-                "id": r.id,
-                "description": r.description,
-            }
+        if all_roles:
+            for r in all_roles:
+                r_data = {
+                    "id": r.id,
+                    "description": r.description,
+                }
 
-            roles.append(r_data)
+                roles.append(r_data)
 
-        return roles
+            return roles
+
+        return []
 
     async def create_role(data):
         new_role = await RoleDB.create_role(data)
