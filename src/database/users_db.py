@@ -15,5 +15,19 @@ class UsersDB:
 
         return role
 
+    async def create_user(self, data):
+        new_user = UserModel(
+            name=data["name"],
+            email=data["email"],
+            password=data.get("password"),
+            role_id=data["role_id"],
+        )
+
+        # Salvar o novo usuário no banco de dados
+        sql.session.add(new_user)
+        sql.session.commit()
+
+        return new_user
+
 
 users_db = UsersDB()

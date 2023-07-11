@@ -5,6 +5,11 @@ from database.users_db import users_db
 
 
 class UsersCtrl:
+    def generate_random_password():
+        letters_and_digits = string.ascii_letters + string.digits
+        password = "".join(random.choice(letters_and_digits) for _ in range(8))
+        return password
+
     async def get_all_users():
         users = await users_db.get_all_users()
 
@@ -41,6 +46,28 @@ class UsersCtrl:
             return user
 
         return []
+
+    @classmethod
+    async def create_user(cls, data):
+        new_user = await users_db.create_user(data)
+
+        print(new_user)
+
+        user = []
+
+        user.append(
+            {
+                "id": new_user.id,
+                "name": new_user.name,
+                "email": new_user.email,
+                "password": new_user.password,
+                "role_id": new_user.role_id,
+                "created_at": new_user.created_at,
+                "updated_at": new_user.updated_at,
+            }
+        )
+
+        return user
 
 
 users_ctrl = UsersCtrl
