@@ -10,7 +10,7 @@ from models.main import sql
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = "postgresql+psycopg2://shipay:shipay@database:5432/shipayDB"
+] = "postgresql+psycopg2://postgres:postgres@34.70.227.178:5432/shipay"
 
 sql.init_app(app)
 migrate = Migrate(app, sql, directory="models/migrations")
